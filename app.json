@@ -13,7 +13,10 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+       "infoPlist": {
+      "NSPhotoLibraryAddUsageDescription": "We need access to your photo library to save your DreamLens creations."
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -25,6 +28,10 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-video",
+      "expo-secure-store"
+    ]
   }
 }

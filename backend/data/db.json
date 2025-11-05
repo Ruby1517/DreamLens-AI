@@ -1,0 +1,101 @@
+{
+  "users": [
+    {
+      "id": "fMzkGaZ2gO",
+      "createdAt": 1762103319926
+    }
+  ],
+  "posts": [
+    {
+      "id": "RV4RfzFs21FE",
+      "authorId": "fMzkGaZ2gO",
+      "mediaUrl": "http://localhost:4000/uploads/1762104814766__7AD06CBA-48DE-47A7-8EC4-06A7319BCB02.heic",
+      "caption": "",
+      "createdAt": 1762104825621,
+      "likes": [
+        "fMzkGaZ2gO"
+      ]
+    },
+    {
+      "id": "Hzb2ZwiMCDbk",
+      "authorId": "fMzkGaZ2gO",
+      "mediaUrl": "http://192.168.101.1:4000/uploads/1762104814766__7AD06CBA-48DE-47A7-8EC4-06A7319BCB02.heic",
+      "caption": "",
+      "createdAt": 1762104841440,
+      "likes": [
+        "fMzkGaZ2gO"
+      ]
+    },
+    {
+      "id": "MGPbe80KWJcb",
+      "authorId": "fMzkGaZ2gO",
+      "mediaUrl": "http://192.168.101.1:4000/uploads/1762104814766__7AD06CBA-48DE-47A7-8EC4-06A7319BCB02.heic",
+      "caption": "Mom and Rodwin",
+      "createdAt": 1762104856525,
+      "likes": [
+        "fMzkGaZ2gO"
+      ]
+    },
+    {
+      "id": "P7PQGX9HeF9L",
+      "authorId": "fMzkGaZ2gO",
+      "mediaUrl": "http://192.168.101.1:4000/uploads/1762105212823__DC5E3A5D-A019-41D8-BBD2-D43593DE620C.heic",
+      "caption": "Halloween",
+      "createdAt": 1762105248681,
+      "likes": [
+        "fMzkGaZ2gO"
+      ]
+    },
+    {
+      "id": "x-EUDwSsYtOS",
+      "authorId": "fMzkGaZ2gO",
+      "mediaUrl": "http://192.168.101.1:4000/uploads/1762119313826__B5C607C3-3287-4720-8256-A939DA24A1FA.heic",
+      "caption": "",
+      "createdAt": 1762119346138,
+      "likes": [
+        "fMzkGaZ2gO"
+      ]
+    },
+    {
+      "id": "1MFhsR-A72lc",
+      "authorId": "fMzkGaZ2gO",
+      "mediaUrl": "http://192.168.101.1:4000/uploads/1762119893493__D9E1144A-A2B9-4CD6-AB7C-C303B02CB376.heic",
+      "caption": "",
+      "createdAt": 1762120150932,
+      "likes": []
+    },
+    {
+      "id": "9OvMVwcegj55",
+      "authorId": "fMzkGaZ2gO",
+      "mediaUrl": "http://192.168.101.1:4000/uploads/1762120199484__18122DA9-9DC7-4BDC-AC2D-A281FD938B8D.heic",
+      "caption": "",
+      "createdAt": 1762120209628,
+      "likes": []
+    },
+    {
+      "id": "jY9Z7HKTaFCg",
+      "authorId": "fMzkGaZ2gO",
+      "mediaUrl": "http://192.168.101.1:4000/uploads/1762120336497__FF7874DD-CCE0-4BFE-A5E6-4E1719F61B46.heic",
+      "caption": "",
+      "createdAt": 1762120400274,
+      "likes": []
+    },
+    {
+      "id": "MPMdKn8RSerw",
+      "authorId": "fMzkGaZ2gO",
+      "mediaUrl": "http://192.168.101.1:4000/uploads/1762120544640__AA9D728D-344C-4F37-A7DF-8BEC8209C847.jpeg",
+      "caption": "",
+      "createdAt": 1762120569765,
+      "likes": []
+    }
+  ],
+  "comments": [
+    {
+      "id": "vCmlBGkFTlCT",
+      "postId": "P7PQGX9HeF9L",
+      "authorId": "fMzkGaZ2gO",
+      "text": "You are so cute",
+      "createdAt": 1762121075577
+    }
+  ]
+}

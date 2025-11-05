@@ -1,0 +1,168 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/* ---------------- ENUMS ---------------- */
+enum MediaType {
+  image
+  video
+}
+
+enum JobState {
+  queued
+  processing
+  completed
+  failed
+}
+
+enum PlanTier {
+  free
+  pro
+  team
+}
+
+/* ---------------- MODELS ---------------- */
+model Profile {
+  id           String   @id @db.Uuid
+  username     String?  @unique
+  display_name String?
+  avatar_url   String?
+  bio          String?
+  plan         PlanTier @default(free)
+  is_guest     Boolean  @default(false)
+  created_at   DateTime @default(now())
+  updated_at   DateTime @default(now())
+
+  assets       Asset[]
+  posts        Post[]
+  comments     Comment[]
+  likes        PostLike[]
+  jobs         Job[]
+  notifications Notification[]
+}
+
+model Asset {
+  id           BigInt   @id @default(autoincrement())
+  owner_id     String   @db.Uuid
+  media_kind   MediaType
+  original_url String
+  width        Int?
+  height       Int?
+  duration_ms  Int?
+  hash         String?
+  created_at   DateTime @default(now())
+
+  owner        Profile  @relation(fields: [owner_id], references: [id])
+  posts        Post[]
+  input_jobs   Job[]    @relation("input_asset_jobs")
+  output_jobs  Job[]    @relation("output_asset_jobs")
+}
+
+model Post {
+  id         BigInt    @id @default(autoincrement())
+  author_id  String    @db.Uuid
+  asset_id   BigInt
+  caption    String?
+  created_at DateTime  @default(now())
+
+  author     Profile   @relation(fields: [author_id], references: [id])
+  asset      Asset     @relation(fields: [asset_id], references: [id])
+  likes      PostLike[]
+  comments   Comment[]
+  entries    ChallengeEntry[]
+}
+
+model PostLike {
+  post_id   BigInt
+  user_id   String  @db.Uuid
+  created_at DateTime @default(now())
+
+  post      Post     @relation(fields: [post_id], references: [id])
+  user      Profile  @relation(fields: [user_id], references: [id])
+
+  @@id([post_id, user_id])
+}
+
+model Comment {
+  id         BigInt   @id @default(autoincrement())
+  post_id    BigInt
+  author_id  String   @db.Uuid
+  text       String
+  created_at DateTime @default(now())
+
+  post       Post     @relation(fields: [post_id], references: [id])
+  author     Profile  @relation(fields: [author_id], references: [id])
+}
+
+model Job {
+  id             BigInt    @id @default(autoincrement())
+  requester_id   String    @db.Uuid
+  input_asset_id BigInt?
+  output_asset_id BigInt?
+  style          String?
+  state          JobState  @default(queued)
+  progress       Int       @default(0)
+  error_message  String?
+  created_at     DateTime  @default(now())
+  updated_at     DateTime  @default(now())
+
+  requester      Profile   @relation(fields: [requester_id], references: [id])
+  input_asset    Asset?    @relation("input_asset_jobs", fields: [input_asset_id], references: [id])
+  output_asset   Asset?    @relation("output_asset_jobs", fields: [output_asset_id], references: [id])
+}
+
+model Challenge {
+  id         BigInt    @id @default(autoincrement())
+  title      String
+  prompt     String
+  starts_at  DateTime
+  ends_at    DateTime
+  created_at DateTime  @default(now())
+
+  entries    ChallengeEntry[]
+}
+
+model ChallengeEntry {
+  challenge_id BigInt
+  post_id      BigInt
+  author_id    String @db.Uuid
+  created_at   DateTime @default(now())
+
+  challenge    Challenge @relation(fields: [challenge_id], references: [id])
+  post         Post      @relation(fields: [post_id], references: [id])
+  author       Profile   @relation(fields: [author_id], references: [id])
+
+  @@id([challenge_id, post_id])
+}
+
+model Notification {
+  id         BigInt    @id @default(autoincrement())
+  user_id    String    @db.Uuid
+  kind       String
+  data       Json?
+  is_read    Boolean   @default(false)
+  created_at DateTime  @default(now())
+
+  user       Profile   @relation(fields: [user_id], references: [id])
+}
