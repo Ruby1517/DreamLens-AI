@@ -192,10 +192,24 @@ export default function Editor() {
       const perm = await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (!perm.granted) { alert('Please allow Photo Library access.'); return; }
 
-      const hasNew = !!(ImagePicker as any).MediaType; // SDK 54+
-      const opts: ImagePicker.ImagePickerOptions = hasNew
-        ? { mediaTypes: [(ImagePicker as any).MediaType.image, (ImagePicker as any).MediaType.video], allowsMultipleSelection: false, selectionLimit: 1, quality: 1 }
-        : { mediaTypes: ImagePicker.MediaTypeOptions.All as any, allowsMultipleSelection: false, selectionLimit: 1, quality: 1 };
+      // Prefer new MediaType[] API (SDK 54+) and only fall back to deprecated enum when missing
+      const hasNewMediaType = 'MediaType' in (ImagePicker as any);
+      const opts: ImagePicker.ImagePickerOptions = hasNewMediaType
+        ? {
+            mediaTypes: [
+              (ImagePicker as any).MediaType.image,
+              (ImagePicker as any).MediaType.video,
+            ] as ImagePicker.MediaType[],
+            allowsMultipleSelection: false,
+            selectionLimit: 1,
+            quality: 1,
+          }
+        : {
+            mediaTypes: ImagePicker.MediaTypeOptions.All as ImagePicker.MediaTypeOptions,
+            allowsMultipleSelection: false,
+            selectionLimit: 1,
+            quality: 1,
+          };
 
       const res = await ImagePicker.launchImageLibraryAsync(opts);
       if (res.canceled) return;
